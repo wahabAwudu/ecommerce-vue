@@ -1,28 +1,85 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <app-header></app-header>
+    <router-view></router-view>
+    <app-footer></app-footer>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Header from './layouts/header.vue'
+import Footer from './layouts/footer.vue'
+
+// import mapState from 'vuex'
 
 export default {
   name: 'app',
   components: {
-    HelloWorld
+    'app-footer': Footer,
+    'app-header': Header,
+  },
+
+  data(){
+    return {
+      shopCategories: [
+        {id: 1, name: 'Men', value: 'men', },
+        {id: 2, name: 'Women', value: 'women',},
+        {id: 3, name: 'New Arrivals', value: 'new_arrivals',},
+        {id: 4, name: 'Contemporary', value: 'contemporary',},
+        ],
+
+      shopProducts: [
+        { id: 34, name: 'Ford Mustang', market_price: 200, selling_price: 150, image: 'https://www.kimballstock.com/images/car-stock-photos/cutout-car-images.jpg', category: 1 },
+        { id: 30, name: 'Chevy Surburban', market_price: 500, selling_price: 450, image: 'https://www.kimballstock.com/images/car-stock-photos/toyota-stock-photos.jpg', category: 2 },
+        { id: 29, name: 'Kia Sonata', market_price: 200, selling_price: 150, image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Stock_Car_V8_Brasil_2007_Peugeot_307_concept.jpg/1200px-Stock_Car_V8_Brasil_2007_Peugeot_307_concept.jpg', category: 3 },
+        { id: 28, name: 'Hyundai Elantra', market_price: 200, selling_price: 150, image: 'https://media.istockphoto.com/photos/red-car-picture-id485492791?k=6&m=485492791&s=612x612&w=0&h=x3K3DJLqROwWbYIoMWUDCD32gtm4PnUFUw_8wj9eKKA=', category: 4 },
+        { id: 20, name: 'Toyota Highlander', market_price: 200, selling_price: 150, image: 'http://vignette3.wikia.nocookie.net/hotwheels/images/1/11/Header_Dodge_Charger_Stock_Car_-_6515gf.jpg/revision/latest?cb=20081127184357', category: 1 },
+        { id: 21, name: 'Toyota Crown', market_price: 200, selling_price: 150, image: 'http://vignette3.wikia.nocookie.net/hotwheels/images/1/11/Header_Dodge_Charger_Stock_Car_-_6515gf.jpg/revision/latest?cb=20081127184357', category: 2 },
+        { id: 22, name: 'Nissan President', market_price: 200, selling_price: 150, image: 'https://www.kimballstock.com/images/car-stock-photos/cutout-car-images.jpg', category: 3 },
+        { id: 14, name: 'Dodge Khalifa', market_price: 200, selling_price: 150, image: 'https://www.kimballstock.com/images/car-stock-photos/cutout-car-images.jpg', category: 4 },
+        { id: 54, name: 'Kantaka Mensah', market_price: 200, selling_price: 150, image: 'https://www.kimballstock.com/images/car-stock-photos/toyota-stock-photos.jpg', category: 1 },
+        { id: 44, name: 'Ford Mustang', market_price: 200, selling_price: 150, image: 'https://www.kimballstock.com/images/car-stock-photos/toyota-stock-photos.jpg', category: 2 },
+        { id: 50, name: 'Chevy Surburban', market_price: 500, selling_price: 450, image: 'https://www.kimballstock.com/images/car-stock-photos/toyota-stock-photos.jpg', category: 1 },
+        { id: 9, name: 'Kia Sonata', market_price: 200, selling_price: 150, image: 'https://www.kimballstock.com/images/car-stock-photos/toyota-stock-photos.jpg', category: 2 },
+        { id: 8, name: 'Hyundai Elantra', market_price: 200, selling_price: 150, image: 'https://www.kimballstock.com/images/car-stock-photos/toyota-stock-photos.jpg', category: 1 },
+        { id: 2, name: 'Toyota Highlander', market_price: 200, selling_price: 150, image: 'https://www.kimballstock.com/images/car-stock-photos/toyota-stock-photos.jpg', category: 1 },
+        { id: 1, name: 'Toyota Crown', market_price: 200, selling_price: 150, image: 'https://www.kimballstock.com/images/car-stock-photos/cutout-car-images.jpg', category: 2 },
+        { id: 42, name: 'Nissan President', market_price: 200, selling_price: 150, image: 'https://www.kimballstock.com/images/car-stock-photos/toyota-stock-photos.jpg', category: 4 },
+        { id: 84, name: 'Dodge Khalifa', market_price: 200, selling_price: 150, image: 'https://www.kimballstock.com/images/car-stock-photos/cutout-car-images.jpg', category: 3 },
+        { id: 64, name: 'Kantaka Mensah', market_price: 200, selling_price: 150, image: 'https://www.kimballstock.com/images/car-stock-photos/toyota-stock-photos.jpg', category: 1 },
+      ]
+    }
+  },
+
+  computed: {
+    // ...mapState({
+    //   products: 'products',
+    //   categories: 'categories',
+    // })
+
+    products() {
+      return this.$store.state.products.products
+    },
+
+    categories() {
+      return this.$store.state.products.categories
+    },
+
+  },
+
+  created() {
+      this.$store.dispatch('setProducts', this.shopProducts)
+    
+      this.$store.dispatch('setCategories', this.shopCategories)
+
+      const existing_cart = JSON.parse(localStorage.getItem('cart'))
+      this.$store.dispatch('loadCart', existing_cart)
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+body {
+  padding-top: 56px;
 }
 </style>
