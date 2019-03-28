@@ -22,10 +22,10 @@
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 <ul class="list-group">
+                <button type="button" class="btn btn-success">View All</button>
                 <li class="list-group-item" v-for="item in cartItems" :key="item.id">
                   <b>{{ item.name }}</b> | @{{ item.selling_price }}
                 </li>
-                <button type="button" class="btn btn-success">View All</button>
                 </ul>
             </div>
           </li>

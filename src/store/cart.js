@@ -12,15 +12,15 @@ const mutations = {
     ADD_TO_CART(state, productId) {
         // add to cart or append to cart.
         const cart = JSON.parse(localStorage.getItem('cart'))
-        if(!cart) {
-            state.cart.push(productId)
-            localStorage.setItem('cart', JSON.stringify(state.cart))
-        }
-        else if(cart) {
+        if(cart) {
             const existing_cart = JSON.parse(localStorage.getItem('cart'))
             existing_cart.push(productId)
             state.cart = existing_cart
             localStorage.setItem('cart', JSON.stringify(existing_cart))
+        }
+        else {
+            state.cart.push(productId)
+            localStorage.setItem('cart', JSON.stringify(state.cart))
         }
 
     },
@@ -35,7 +35,10 @@ const mutations = {
     },
 
     LOAD_CART(state) {
-        state.cart = JSON.parse(localStorage.getItem('cart'))
+        if(JSON.parse(localStorage.getItem('cart'))) {
+            state.cart = JSON.parse(localStorage.getItem('cart'))
+        }
+        
     },
 }
 
