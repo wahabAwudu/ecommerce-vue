@@ -72,8 +72,7 @@ export default {
     
       this.$store.dispatch('setCategories', this.shopCategories)
 
-      const existing_cart = JSON.parse(localStorage.getItem('cart'))
-      this.$store.dispatch('loadCart', existing_cart)
+      this.$store.dispatch('loadCart')
   }
 }
 </script>

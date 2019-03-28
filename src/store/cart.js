@@ -10,6 +10,7 @@ const getters = {
 
 const mutations = {
     ADD_TO_CART(state, productId) {
+        // add to cart or append to cart.
         const cart = JSON.parse(localStorage.getItem('cart'))
         if(!cart) {
             state.cart.push(productId)
@@ -25,6 +26,7 @@ const mutations = {
     },
 
     REMOVE_FROM_CART(state, productId) {
+        // remove item from cart
         const existing_cart = JSON.parse(localStorage.getItem('cart'))
         let position = existing_cart.indexOf(productId)
         existing_cart.splice(position, 1)
