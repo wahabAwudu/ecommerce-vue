@@ -10,11 +10,26 @@
       
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item active">
+          <!-- <li class="nav-item active">
             <a class="nav-link" href="#">Home
               <span class="sr-only">(current)</span>
             </a>
+          </li> -->
+            <!-- <li class="nav-item dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+               <i class="fas fa-cart-plus 2x"></i> 
+               <span class="badge badge-primary">{{cartLength}}</span>
+            </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <ul class="list-group">
+          <li class="list-group-item"><router-link to="/">All</router-link>
+          <li class="list-group-item" v-for="cat in categories" :key="cat.id">
+            <a :href="'/categories/' + cat.value + '/' + cat.id">{{cat.name}}</a>
           </li>
+        </ul>
+            </div>
+          </li> -->
+
           <li class="nav-item dropdown">
             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                <i class="fas fa-cart-plus 2x"></i> 
@@ -59,6 +74,10 @@ export default {
         })
 
         return cart_items
+      },
+
+      categories() {
+        return this.$store.state.products.categories
       },
 
     },

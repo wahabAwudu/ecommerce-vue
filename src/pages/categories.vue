@@ -3,7 +3,7 @@
       <!-- Page Content -->
   <div class="container">
 
-    <div class="row">
+    <div class="row mt-5">
 
       <div class="col-lg-3">
 
@@ -11,7 +11,7 @@
         <div class="list-group">
           <li class="list-group-item"><router-link to="/">All</router-link>
           <li class="list-group-item" v-for="cat in categories" :key="cat.id">
-            <router-link :to="'/categories/' + cat.id">{{cat.name}}</router-link>
+            <router-link :to="'/categories/' + cat.value + '/' + cat.id">{{cat.name}}</router-link>
           </li>
         </div>
         
@@ -22,7 +22,7 @@
       <div class="col-lg-9">
         <div class="row">
         
-          <div class="col-lg-4 col-md-6 mb-4" v-for="prod in products" :key="prod.id">
+          <div class="col-lg-4 col-md-6 mb-4" v-for="prod in filteredProducts" :key="prod.id">
             <div class="card h-100">
               <a href="#"><img class="card-img-top" :src="prod.image" alt=""></a>
               <div class="card-body">
@@ -80,23 +80,25 @@ export default {
     // })
 
     products() {
-      const all_products = this.$store.state.products.products
-
-      return all_products.filter(prod => prod.category === this.category_id)
+      return this.$store.state.products.products
     },
 
     categories() {
       return this.$store.state.products.categories
     },
 
+    filteredProducts() {
+      return this.products.filter(product => product.category === Number(this.category_id))
+    }
+
   },
 
   created() {
-      
+  
   },
 
   methods: {
- 
+
   },
 }
 </script>

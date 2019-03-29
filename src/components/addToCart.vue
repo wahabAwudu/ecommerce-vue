@@ -13,11 +13,6 @@ export default {
     methods: {
     addToCart(id) {
       this.$store.dispatch('addToCart', id)
-      // this.$toasted.success('Added to Cart', {
-      //   icon: 'check',
-      //   position: 'top-right',
-      //   duration: 3000
-      // })
       swal('Success!', 'Item Added to Cart', 'success');
     },
 
