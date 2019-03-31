@@ -3,8 +3,6 @@
 </template>
 
 <script>
-import swal from 'sweetalert'
-
 export default {
     props: {
       productId: { default: null,}
@@ -13,7 +11,6 @@ export default {
     methods: {
     addToCart(id) {
       this.$store.dispatch('addToCart', id)
-      swal('Success!', 'Item Added to Cart', 'success');
     },
 
     }

@@ -3,7 +3,7 @@
       <!-- Navigation -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container">
-      <a class="navbar-brand" href="#">Awesome Shop</a>
+      <router-link class="navbar-brand" to="/shop">Awesome Shop</router-link>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -37,9 +37,11 @@
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 <ul class="list-group">
-                <button type="button" class="btn btn-success">View All</button>
                 <li class="list-group-item" v-for="item in cartItems" :key="item.id">
                   <b>{{ item.name }}</b> | @{{ item.selling_price }}
+                </li>
+                <li class="list-group-item">
+                  <router-link to='/shop/checkout' class="btn btn-success">View All <i class="fas fa-cart-plus 2x"></i></router-link>
                 </li>
                 </ul>
             </div>
@@ -73,7 +75,7 @@ export default {
           cart_items.push(cart_product)
         })
 
-        return cart_items
+        return cart_items.slice(0, 3)
       },
 
       categories() {

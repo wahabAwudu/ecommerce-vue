@@ -1,3 +1,5 @@
+import swal from 'sweetalert'
+
 const state = {
     cart: [],
 }
@@ -22,6 +24,7 @@ const mutations = {
             state.cart.push(productId)
             localStorage.setItem('cart', JSON.stringify(state.cart))
         }
+        swal('Success!', 'Item Added to Cart', 'success');
 
     },
 
@@ -31,7 +34,8 @@ const mutations = {
         let position = existing_cart.indexOf(productId)
         existing_cart.splice(position, 1)
         state.cart = existing_cart
-        localStorage.setItem('cart', existing_cart)
+        localStorage.setItem('cart', JSON.stringify(existing_cart))
+        swal('Removed!', 'Item Removed from Cart', 'warning');
     },
 
     LOAD_CART(state) {

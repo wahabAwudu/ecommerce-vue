@@ -8,9 +8,9 @@
 
         <h1 class="my-4">Categories</h1>
         <div class="list-group">
-          <li class="list-group-item"><router-link to="/">All</router-link>
+          <li class="list-group-item"><router-link to="/shop">All</router-link>
           <li class="list-group-item" v-for="cat in categories" :key="cat.id">
-            <router-link :to="'/categories/' + cat.value + '/' + cat.id">{{cat.name}}</router-link>
+            <router-link :to="'/shop/categories/' + cat.value + '/' + cat.id">{{cat.name}}</router-link>
           </li>
         </div>
         
@@ -26,7 +26,7 @@
         <form>
           <div class="form-group">
             <label for="search"></label>
-            <input type="text" id="search" class="form-control" placeholder="search products" v-model="product_name">
+            <input type="text" id="search" class="form-control" placeholder="search products" v-model="search_term">
           </div>
         </form>
       </div>
@@ -82,15 +82,11 @@ export default {
 
     data() {
       return {
-        product_name: '',
+        search_term: '',
       }
     },
 
     computed: {
-    // ...mapState({
-    //   products: 'products',
-    //   categories: 'categories',
-    // })
 
     products() {
       return this.$store.state.products.products
@@ -100,14 +96,16 @@ export default {
       return this.$store.state.products.categories
     },
 
+    // returns products filtered with search term. all, if no search.
     filteredProducts() {
-      if(this.product_name === this.product_name.toLowerCase()) {
+      // turns search term to lowercase.
+      if(this.search_term === this.search_term.toLowerCase()) {
         return this.products.filter(prod => {
-        return prod.name.includes(this.product_name)
+        return prod.name.includes(this.search_term)
       })
       }else {
         return this.products.filter(prod => {
-        return prod.name.includes(this.product_name.toLowerCase())
+        return prod.name.includes(this.search_term.toLowerCase())
       })
       }
       
